@@ -28,14 +28,21 @@ https.get('https://jsonplaceholder.typicode.com/users', res => {
   res.on('end', () => {
     console.log('Response ended: ');
     const users = JSON.parse(Buffer.concat(data).toString());
-
+    console.log("Users / " + users);
+    console.log(`----------------------------------------------------------------------------------------------------------------------------------`);
     for(user of users) {
-      console.log(`Got user with id: ${user.id}, name: ${user.name}, email: ${user.email}, lat: ${user.address.geo.lat}, lng: ${user.address.geo.lng}`);
-      console.log(`-----------------------------------------------------------`);
-      let dotArr = user.email.split(".");
-      console.log(`email: ${dotArr[dotArr.length - 1]}`);
+      mailEnding = Object.entries(user).filter(([key, value]) => key == 'email' && value.includes('biz'));
+      console.log(mailEnding);
+      if(mailEnding.includes('biz')) {
       console.log(`----------------------------------------------------------------------------------------------------------------------------------`);
-  }
+      
+        console.log(`Got user with id: ${user.id}, email: ${user.email}, name: ${user.name}, lat: ${user.address.geo.lat}, lng: ${user.address.geo.lng}`);
+        console.log(`-----------------------------------------------------------`);
+        let mapUser = users.map(user => user.id);
+        console.log(`Porsen: ` + mapUser);
+        console.log(`-----------------------------------------------------------`); 
+      }
+    }
 
   });
 }).on('error', err => {
