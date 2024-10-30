@@ -31,7 +31,7 @@ https.get('https://jsonplaceholder.typicode.com/users', res => {
     console.log("Users / " + users);
     console.log(`----------------------------------------------------------------------------------------------------------------------------------`);
     for(user of users) {
-      mailEnding = Object.entries(user).filter(([key, value]) => key == 'email' && value.includes('biz'));
+      mailEnding = Object.entries(user).filter(([key, value]) => key == 'email' && value.includes('biz')).toString();
       console.log(mailEnding);
       if(mailEnding.includes('biz')) {
       console.log(`----------------------------------------------------------------------------------------------------------------------------------`);
