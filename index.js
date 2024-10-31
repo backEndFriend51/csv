@@ -28,22 +28,27 @@ https.get('https://jsonplaceholder.typicode.com/users', res => {
   res.on('end', () => {
     console.log('Response ended: ');
     const users = JSON.parse(Buffer.concat(data).toString());
-    console.log("Users / " + users);
-    console.log(`----------------------------------------------------------------------------------------------------------------------------------`);
+    let allUsers = [];
+    let i = 0;
     for(user of users) {
+
+      allUsers[i] = 'id: '+user.id.toString()+' email: '+user.email+' name: '+user.name+' lat: '+user.address.geo.lat+' lng: '+user.address.geo.lng;
+      console.log(`----------------------------------------------------------------------------------------------------------------------------------`);
       mailEnding = Object.entries(user).filter(([key, value]) => key == 'email' && value.includes('biz')).toString();
       console.log(mailEnding);
-      if(mailEnding.includes('biz')) {
+//      if(mailEnding.includes('biz')) {
       console.log(`----------------------------------------------------------------------------------------------------------------------------------`);
       
         console.log(`Got user with id: ${user.id}, email: ${user.email}, name: ${user.name}, lat: ${user.address.geo.lat}, lng: ${user.address.geo.lng}`);
         console.log(`-----------------------------------------------------------`);
         let mapUser = users.map(user => user.id);
-        console.log(`Porsen: ` + mapUser);
+        console.log(`Porsen: ` + allUsers[i]);
         console.log(`-----------------------------------------------------------`); 
-      }
+//      }
+      i++;
     }
-
+  let emailUsers = allUsers.filter(user => user.includes('biz'));
+  console.log('org '+emailUsers);
   });
 }).on('error', err => {
   console.log('Error: ', err.message);
