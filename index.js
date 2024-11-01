@@ -32,23 +32,22 @@ https.get('https://jsonplaceholder.typicode.com/users', res => {
     let i = 0;
     for(user of users) {
 
-      allUsers[i] = 'id: '+user.id.toString()+' email: '+user.email+' name: '+user.name+' lat: '+user.address.geo.lat+' lng: '+user.address.geo.lng;
+      allUsers[i] = ' id: '+user.id.toString()+' name: '+user.name+' username: '+user.username+' email: '+user.email+' street: '+user.address.street+
+      ' suite: '+user.address.suite+' city: '+user.address.city+' zipcode: '+user.address.zipcode+' lat: '+user.address.geo.lat+' lng: '+user.address.geo.lng+
+      ' phone: '+user.phone+' website: '+user.website+' companyname: '+user.company.name+' companycatchPhrase: '+user.company.catchPhrase+' companybs: '+
+      user.company.bs+'\n';
       console.log(`----------------------------------------------------------------------------------------------------------------------------------`);
-      mailEnding = Object.entries(user).filter(([key, value]) => key == 'email' && value.includes('biz')).toString();
-      console.log(mailEnding);
+//      mailEnding = Object.entries(user).filter(([key, value]) => key == 'email' && value.includes('biz')).toString();
+//      console.log(mailEnding);
 //      if(mailEnding.includes('biz')) {
       console.log(`----------------------------------------------------------------------------------------------------------------------------------`);
-      
-        console.log(`Got user with id: ${user.id}, email: ${user.email}, name: ${user.name}, lat: ${user.address.geo.lat}, lng: ${user.address.geo.lng}`);
-        console.log(`-----------------------------------------------------------`);
-        let mapUser = users.map(user => user.id);
         console.log(`Porsen: ` + allUsers[i]);
         console.log(`-----------------------------------------------------------`); 
 //      }
       i++;
     }
-  let emailUsers = allUsers.filter(user => user.includes('biz'));
-  console.log('org '+emailUsers);
+  let emailUsers = allUsers.filter(User => User.substring('email: ', 30)).map(User => User.substring('id: ', 7));
+  console.log('Ending '+emailUsers);
   });
 }).on('error', err => {
   console.log('Error: ', err.message);
