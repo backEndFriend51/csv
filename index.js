@@ -28,6 +28,8 @@ https.get('https://jsonplaceholder.typicode.com/users', res => {
   res.on('end', () => {
     console.log('Response ended: ');
     const users = JSON.parse(Buffer.concat(data).toString());
+
+
     let allUsers = [];
     let i = 0;
     for(user of users) {
@@ -41,12 +43,13 @@ https.get('https://jsonplaceholder.typicode.com/users', res => {
 //      console.log(mailEnding);
 //      if(mailEnding.includes('biz')) {
       console.log(`----------------------------------------------------------------------------------------------------------------------------------`);
-        console.log(`Porsen: ` + allUsers[i]);
+      let sub = allUsers[i].substring(allUsers[i].indexOf('@'), allUsers[i].indexOf('@') + 20);
+        console.log(`Porsen: ` + sub);
         console.log(`-----------------------------------------------------------`); 
 //      }
       i++;
     }
-  let emailUsers = allUsers.filter(User => User.substring('email: ', 30)).map(User => User.substring('id: ', 7));
+  let emailUsers = allUsers.filter(User => User.includes('biz')).map(User => User.substring('id: ', 7));
   console.log('Ending '+emailUsers);
   });
 }).on('error', err => {
