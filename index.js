@@ -34,10 +34,7 @@ https.get('https://jsonplaceholder.typicode.com/users', res => {
     let i = 0;
     for(user of users) {
 
-      allUsers[i] = ' id: '+user.id.toString()+' name: '+user.name+' username: '+user.username+' email: '+user.email+' street: '+user.address.street+
-      ' suite: '+user.address.suite+' city: '+user.address.city+' zipcode: '+user.address.zipcode+' lat: '+user.address.geo.lat+' lng: '+user.address.geo.lng+
-      ' phone: '+user.phone+' website: '+user.website+' companyname: '+user.company.name+' companycatchPhrase: '+user.company.catchPhrase+' companybs: '+
-      user.company.bs+'\n';
+      allUsers[i] = ' id: '+user.id.toString()+' email: '+user.email+' name: '+user.name+' lng: '+user.address.geo.lng+' lat: '+user.address.geo.lat;
       console.log(`----------------------------------------------------------------------------------------------------------------------------------`);
 //      mailEnding = Object.entries(user).filter(([key, value]) => key == 'email' && value.includes('biz')).toString();
 //      console.log(mailEnding);
@@ -49,7 +46,7 @@ https.get('https://jsonplaceholder.typicode.com/users', res => {
 //      }
       i++;
     }
-  let emailUsers = allUsers.filter(User => User.includes('biz')).map(User => User.substring('id: ', 7));
+  let emailUsers = allUsers.filter(allUser => allUser.includes('biz')).map(allUser => allUser.substring(allUser.indexOf(' id: '), allUser.indexOf(' lat: ')));
   console.log('Ending '+emailUsers);
   });
 }).on('error', err => {
