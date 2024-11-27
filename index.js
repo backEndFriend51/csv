@@ -46,7 +46,10 @@ https.get('https://jsonplaceholder.typicode.com/users', res => {
 //      }
       i++;
     }
-  let emailUsers = allUsers.filter(allUser => allUser.includes('biz')).map(allUser => allUser.substring(allUser.indexOf(' id: '), allUser.indexOf(' lat: ')));
+  let emailUsers = allUsers.filter(allUser => allUser.includes('biz'))
+  .map(allUser => allUser.substring(allUser.indexOf(' id: '), allUser.indexOf(' lat: ')))
+  .reduce(allUser => allUser.substring(allUser.indexOf(' lng: ') ,allUser.indexOf(' lng: ')+14) +
+                     allUser.substring(allUser.indexOf(' lng: ') ,allUser.indexOf(' lng: ')+14));
   console.log('Ending '+emailUsers);
   });
 }).on('error', err => {
