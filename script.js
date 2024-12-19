@@ -15,16 +15,14 @@ https.get('https://jsonplaceholder.typicode.com/users', res => {
         console.log('Response ended: ');
         const users = JSON.parse(Buffer.concat(data).toString());
         
-        const filteredAndMapUser = users.filter(user => user.email.includes("biz")).map(u => u.id + " / " + u.email + " / " + u.name + " / " 
-            + u.address.geo.lat + " / " + u.address.geo.lng).reduce(sum);
-        console.log(filteredAndMapUser);
-        function sum(acc, item) {
-            return acc + item;
-        }
+        const filteredAndMapUser = users.filter(user => user.email.includes("biz")).map(u => " " + u.id + " / " + u.email + " / " + u.name + " / " + 
+                                                                                        u.address.geo.lat + " / " + u.address.geo.lng);
+        console.log("String 1 " + filteredAndMapUser);
+
+        const coor = users.filter(user => user.email.includes("biz")).map(u => u.address.geo.lng).reduce((acc, item) => (acc + item) / 2);
 
         console.log("--------------------------------------------------------------------------------------------------------------------------");
-        const reduseUser = "filteredAndMapUser";
-        console.log(reduseUser);
+        console.log("reduse = " + coor);
 
  /*       let allUsers = [];
         let i = 0;
