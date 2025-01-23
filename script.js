@@ -22,11 +22,11 @@ https.get('https://jsonplaceholder.typicode.com/users', res => {
         let coorArray = [];
         for(let i = 0; i < 3; i++) {
             coorArray[i] = users.filter(user => user.email.includes("biz")).map(u => u.address.geo.lng).toString();
-            coorArray[i] = coorArray[i].substring(i*8, (i+1)*8-1);
+            coorArray[i] = Number(coorArray[i].substring(i*8, (i+1)*8-1));
         }
         const coor = coorArray.reduce(sum);
 
-        function sum(acc, item) {
+        function sum(acc, item){ 
             return acc + item;
         }
 
