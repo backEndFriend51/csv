@@ -19,7 +19,16 @@ https.get('https://jsonplaceholder.typicode.com/users', res => {
                                                                                         u.address.geo.lat + " / " + u.address.geo.lng);
         console.log("String 1 " + filteredAndMapUser);
 
-        const coor = users.filter(user => user.email.includes("biz")).map(u => u.address.geo.lng).reduce((acc, item) => (acc + item) / 2);
+        let coorArray = [];
+        for(let i = 0; i < 3; i++) {
+            coorArray[i] = users.filter(user => user.email.includes("biz")).map(u => u.address.geo.lng).toString();
+            coorArray[i] = coorArray[i].substring(i*8, (i+1)*8-1);
+        }
+        const coor = coorArray.reduce(sum);
+
+        function sum(acc, item) {
+            return acc + item;
+        }
 
         console.log("--------------------------------------------------------------------------------------------------------------------------");
         console.log("reduse = " + coor);
