@@ -11,16 +11,17 @@ https.get('https://jsonplaceholder.typicode.com/users', res => {
         data.push(chunk);
     });
 
+    let filteredAndMapUser = [];
     res.on('end', () => {
         console.log('Response ended: ');
         const users = JSON.parse(Buffer.concat(data).toString());
         
-        const filteredAndMapUser = users.filter(user => user.email.includes("biz")).map(u => " " + u.id + " / " + u.email + " / " + u.name + " / " + 
+        filteredAndMapUser = users.filter(user => user.email.includes("biz")).map(u => " " + u.id + " / " + u.email + " / " + u.name + " / " + 
                                                                                         u.address.geo.lat + " / " + u.address.geo.lng);
         console.log("String 1 " + filteredAndMapUser);
 
         let coorArray = [];
-        for(let i = 0; i < 3; i++) {
+        for(let i = 0; i < filteredAndMapUser.length; i++) {
             coorArray[i] = users.filter(user => user.email.includes("biz")).map(u => u.address.geo.lng).toString();
             coorArray[i] = Number(coorArray[i].substring(i*8, (i+1)*8-1));
         }
@@ -31,7 +32,7 @@ https.get('https://jsonplaceholder.typicode.com/users', res => {
         }
 
         console.log("--------------------------------------------------------------------------------------------------------------------------");
-        console.log("reduse = " + coor);
+        console.log("reduce = " + coor/filteredAndMapUser.length);
 
  /*       let allUsers = [];
         let i = 0;
