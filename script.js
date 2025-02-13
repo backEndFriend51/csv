@@ -16,8 +16,7 @@ https.get('https://jsonplaceholder.typicode.com/users', res => {
         console.log('Response ended: ');
         const users = JSON.parse(Buffer.concat(data).toString());
         
-        filteredAndMapUser = users.filter(user => user.email.includes("biz")).map(u => " " + u.id + " / " + u.email + " / " + u.name + " / " + 
-                                                                                        u.address.geo.lat + " / " + u.address.geo.lng);
+        filteredAndMapUser = users.filter(user => user.email.includes("biz")).map(u => u.id + ", " + u.email + ", " + u.name + "/");
         console.log("String 1 " + filteredAndMapUser);
 
         let coorArray = [];
@@ -30,28 +29,18 @@ https.get('https://jsonplaceholder.typicode.com/users', res => {
         function sum(acc, item){ 
             return acc + item;
         }
-
-        console.log("--------------------------------------------------------------------------------------------------------------------------");
-        console.log("reduce = " + coor/filteredAndMapUser.length);
-
- /*       let allUsers = [];
-        let i = 0;
-        for (user of users) {
-
-            allUsers[i] = ' id: ' + user.id.toString() + ' email: ' + user.email + ' name: ' + user.name + ' lng: ' + user.address.geo.lng + ' lat: ' + user.address.geo.lat;
-            console.log(`----------------------------------------------------------------------------------------------------------------------------------`);
-            //      mailEnding = Object.entries(user).filter(([key, value]) => key == 'email' && value.includes('biz')).toString();
-            //      console.log(mailEnding);
-            //      if(mailEnding.includes('biz')) {
-            console.log(`----------------------------------------------------------------------------------------------------------------------------------`);
-            let sub = allUsers[i].substring(allUsers[i].indexOf('@'), allUsers[i].indexOf('@') + 20);
-            console.log(`Porsen: ` + sub);
-            console.log(`-----------------------------------------------------------`);
-            //      }
-            i++;
+        console.log("Array 1 " + coorArray);
+        let filterArray = filteredAndMapUser.toString().split("/,");
+        for(let n = 0; n < filteredAndMapUser.length; n++) {
+            console.log(n + ".B - " + filterArray[n]);
+            filterArray[n] = filterArray[n].replace("/", "") + ", " + (coor/filteredAndMapUser.length);
+            console.log(n + ".A - " + filterArray[n]);
         }
-        let emailUsers = allUsers.filter(allUser => allUser.includes('biz')).map(allUser => allUser.substring(allUser.indexOf(' id: '), allUser.indexOf(' lat: ')));
-        console.log('Ending ' + emailUsers);*/
+
+        console.log("ID,EMAIL,NAME,GEO");
+        console.log(filterArray);
+
+
     });
 }).on('error', err => {
     console.log('Error: ', err.message);
